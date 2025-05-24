@@ -1,3 +1,5 @@
+version: '3.4'
+
 services:
   webapplication:
     build:
@@ -7,6 +9,7 @@ services:
       - "5000:80"
     depends_on:
       - sqlserver
+      - redis
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     networks:
@@ -19,6 +22,13 @@ services:
       ACCEPT_EULA: "Y"
     ports:
       - "1433:1433"
+    networks:
+      - app-network
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
     networks:
       - app-network
 
