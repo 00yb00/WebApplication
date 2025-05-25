@@ -26,6 +26,8 @@ namespace BLL.Services
             services.AddScoped<IOrdersService, OrdersService>();
             services.AddScoped<ICustomersService, CustomersService>();
             services.AddScoped<IEmployeesService, EmployeesService>();
+            services.AddScoped<IMessageBusService, RabbitMessageBusService>();
+            services.AddScoped<RabbitMqConsumerService>();
             services.AddScoped<DockerService>();
         }
 

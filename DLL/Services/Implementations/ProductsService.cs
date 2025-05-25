@@ -15,11 +15,12 @@ namespace BLL.Services.Implementations
     {
         private readonly IProductsRepository _repository;
         private readonly IMapper _mapper;
-
-        public ProductsService(IProductsRepository repository, IMapper mapper)
+        private readonly IMessageBusService _messageBus;
+        public ProductsService(IProductsRepository repository, IMapper mapper, IMessageBusService messageBus)
         {
             _repository = repository;
             _mapper = mapper;
+            _messageBus = messageBus;
         }
 
         public async Task<IEnumerable<ProductsDTO>> GetAllAsync()
@@ -41,13 +42,27 @@ namespace BLL.Services.Implementations
             var entity = await _repository.GetByIdAsync(id);
             return entity == null ? null : _mapper.Map<ProductsDTO>(entity);
         }
-
         public async Task AddAsync(ProductsDTO dto)
         {
             var entity = _mapper.Map<ProductsEntity>(dto);
             await _repository.AddAsync(entity);
 
+            var message = new ProductCreatedMessageDTO
+            {
+                Id = entity.ProductID,
+                Name = entity.ProductName,
+                CategoryId = entity.CategoryID
+            };
+
+            _messageBus.SendMessage(message,"product.created");
         }
+
+        //public async Task AddAsync(ProductsDTO dto)
+        //{
+        //    var entity = _mapper.Map<ProductsEntity>(dto);
+        //    await _repository.AddAsync(entity);
+
+        //}
 
         public async Task UpdateAsync(ProductsDTO dto)
         {
@@ -65,5 +80,6 @@ namespace BLL.Services.Implementations
             var entity = _mapper.Map<ProductsEntity>(dto);
             await _repository.AddProductAsync(entity);
         }
+
     }
 }
