@@ -1,0 +1,12 @@
+﻿apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: mytimer
+spec:
+  type: bindings.cron
+  version: v1
+  metadata:
+    - name: schedule
+      value: "@every 10s" # כל 10 שניות
+    - name: route
+      value: /binding-trigger

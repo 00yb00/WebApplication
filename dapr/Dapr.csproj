@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapr.Client" Version="1.15.4" />
+    <PackageReference Include="Microsoft.Graph" Version="5.79.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="MyService\Controllers\" />
+  </ItemGroup>
+
+</Project>

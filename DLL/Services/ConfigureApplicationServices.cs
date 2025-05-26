@@ -28,7 +28,7 @@ namespace BLL.Services
             services.AddScoped<IEmployeesService, EmployeesService>();
             services.AddScoped<IMessageBusService, RabbitMessageBusService>();
             services.AddScoped<RabbitMqConsumerService>();
-            services.AddScoped<DockerService>();
+            //services.AddScoped<DockerService>();
         }
 
         public static void ConfigureRepositories(this IServiceCollection services,IConfiguration configuration)
